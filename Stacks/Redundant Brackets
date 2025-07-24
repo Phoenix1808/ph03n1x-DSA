@@ -1,0 +1,42 @@
+//REDUNDANT BRACKETS
+
+#include <bits/stdc++.h>
+using namespace std;
+
+bool RedundantBrackets(string expression) {
+    stack<char> s;
+
+    for (char ch : expression) {
+        if (ch == ')') {
+            bool operatorFound = false;
+
+            while (!s.empty() && s.top() != '(') {
+                char top = s.top();
+                if (top == '+' || top == '-' || top == '*' || top == '/') {
+                    operatorFound = true;
+                }
+                s.pop();
+            }
+
+           
+            if (!s.empty()) s.pop();
+
+            // agar operator nahi mila, to brackets redundant hain
+            if (!operatorFound) return true;
+        } else {
+            s.push(ch);  // push operands, '(', operators
+        }
+    }
+
+    return false;
+}
+
+int main() {
+    string exp1 = "((a+b))";
+    string exp2 = "(a+(b)/c)";
+    string exp3 = "(a)";
+
+    cout << RedundantBrackets(exp1) << endl;  // Output: 1 (true)
+    cout << RedundantBrackets(exp2) << endl;  // Output: 0 (false)
+    cout << RedundantBrackets(exp3) << endl;  // Output: 1 (true)
+}
