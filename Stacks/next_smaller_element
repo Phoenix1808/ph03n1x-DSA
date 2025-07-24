@@ -1,0 +1,32 @@
+//NEXT SMALLER ELEMENT
+
+#include <bits/stdc++.h>
+using namespace std;
+
+vector <int> nexsma(vector<int> & arr){
+    int n = arr.size();
+    vector <int> result(n);
+    stack <int> s;
+
+    for(int i=n-1;i>=0;i--){
+     while(!s.empty() && s.top()>=arr[i])
+     s.pop();
+     if(s.empty())
+     result[i] = -1;
+     else
+     result[i] = s.top();
+
+     s.push(arr[i]);
+    }
+    return result;
+}
+
+int main(){
+    vector <int> arr = {4,8,5,3,10};
+    vector <int> ans = nexsma(arr);
+
+    for(int i=0;i<ans.size();i++){
+        cout<<"Next smaller element for : "<<arr[i]<<"is"<<ans[i]<<endl;
+     }
+     return 0;
+}
