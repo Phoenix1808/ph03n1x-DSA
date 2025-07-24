@@ -1,0 +1,51 @@
+//CELEBRITY PROBLEM
+//M[i][j] means i knows j
+
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int cele(vector<vector<int>>& M, int n){
+    stack <int> s;
+
+    for(int i=0;i<n;i++){
+     s.push(i);
+    }
+
+    while(s.size()>1){
+        int a = s.top();
+        s.pop();
+        int b = s.top();
+        s.pop();
+
+        if(M[a][b]==1)
+        s.push(b);
+        else
+        s.push(a);
+    }
+
+    int xyz = s.top();
+    for(int i=0;i<n;i++){
+      if(i != xyz){
+        if(M[xyz][i]==1 || M[i][xyz]==0)
+        return -1;
+      }
+    }
+    return xyz;
+}
+
+int main(){
+    vector<vector<int>> M = {
+    {0,1,1},{0,0,0},{0,1,0}
+    };
+
+    int n = M.size();
+    int result = cele(M,n);
+
+    if(result == -1)
+    cout<<"Aam Aadmi"<<endl;
+    else
+    cout<<"koi to h: "<<result<<endl;
+
+    return 0;
+}
