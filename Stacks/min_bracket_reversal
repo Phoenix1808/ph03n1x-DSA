@@ -1,0 +1,44 @@
+//MINIMUM BRACKET REVERSAL
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int cntrev(string s){
+    int n = s.length();
+    if(n%2==1)
+    return -1;
+
+    stack <char> st;
+    for(char ch: s){
+        if(ch=='{')
+        st.push(ch);
+        else{
+            if(!st.empty() && st.top() =='{')
+            st.pop();
+            else
+            st.push(ch);
+        }
+    }
+
+    int x = 0, y=0; //open(x) close(y)
+    while(!st.empty()){
+        if(st.top()=='{')
+        x++;
+        else
+        y++;
+        st.pop();
+    }
+    return (x+1)/2 + (y+1)/2;
+}
+
+int main(){
+    string s; cin>>s;
+    int ans = cntrev(s);
+
+    if(ans==- 1)
+    cout<<"Kuch nhi ho skta"<<endl;
+    else
+    cout<<"Min. reversal needed :: "<<ans<<endl;
+
+    return 0;
+}
