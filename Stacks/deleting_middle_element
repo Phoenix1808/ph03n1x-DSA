@@ -1,0 +1,40 @@
+//DELETION OF MIDDLE ELEMENT
+
+
+#include <bits/stdc++.h>
+using namespace std;
+
+void delmid(stack <int>&s , int beg , int mid){
+    if(beg == mid){
+        s.pop();
+        return ;
+    }
+
+    int temp = s.top();
+    s.pop();
+    delmid(s,beg+1,mid);
+    s.push(temp);
+}
+
+void delmid(stack<int> &s){
+    int n = s.size();
+    int mid = n/2;
+    delmid(s,0,mid);
+}
+
+
+int main(){
+    stack <int> s;
+    for(int i=5;i>=1;i--)
+     s.push(i);
+    
+    
+    delmid(s);
+
+    while(!s.empty()){
+        cout<<s.top()<<" ";
+        s.pop();
+    }
+    return 0;
+}
+
