@@ -1,0 +1,38 @@
+//First Negative Integer in every window of size K
+
+#include <bits/stdc++.h>
+using namespace std;
+
+vector <int> firNeg(vector <int> & arr, int k){
+    deque<int> d; //kewal -ve numbers ke index store honge
+        vector <int> result ; //final ans stored
+     
+    //removing out of window elements from front
+    for(int i=0;i<arr.size();i++){
+     if(!d.empty() && d.front() <= i-k)
+       d.pop_front();
+           
+      if(arr[i]<0) //adding current index if it's negative
+      d.push_back(i);
+
+      if(i>=k-1){
+        if(d.empty()) result.push_back(0);
+        else result.push_back(arr[d.front()]);
+      }
+    }
+    return result;
+}
+
+int main(){
+    vector <int> arr = {12,-1,-7,8,-15,30,16,28};
+    int k = 3;
+
+    vector <int> ans = firNeg(arr,k);
+    cout<<"first negative number :";
+    for(int x :ans){
+     cout<<x<<" ";
+    }
+    cout<<endl;
+
+    return 0;
+}
