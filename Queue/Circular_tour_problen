@@ -1,0 +1,38 @@
+//Circular Tour Problem
+
+//N petrol pumps each petrol pump provides petrol[i] amount of petrol. the truck needs distance[i] petrol to go fomr pump i to pump i+1
+//Task is to find the first petrol pump index from where the truck can complete full circle without petrol tank going negative at any point if not possible then return -1.
+// Greedy approach O(n) and brute force m O(n^2)
+
+#include <bits/stdc++.h>
+using namespace std;
+
+struct petrolpump{
+    int petrol; int distance;
+};
+
+int xyz(petrolpump p[], int n){
+    int total = 0; // overall petrol - distance
+    int current = 0; // running tank from start index
+    int start = 0; //index at starting pump
+
+    for(int i=0;i<n;i++){
+     total = total + p[i].petrol - p[i].distance;
+     current = current + p[i].petrol - p[i].distance;
+     
+     if(current<0){
+        start = i+1;
+        current =0;
+     }
+    }
+    if(total>=0) return start;
+    else return -1;
+}
+
+int main(){
+    petrolpump arr[] = {{4,6},{6,5},{7,3},{4,5}};
+    int n = sizeof(arr)/sizeof(arr[0]);
+    cout<<"Starting index is: "<<xyz(arr,n);
+    return 0;
+}
+
