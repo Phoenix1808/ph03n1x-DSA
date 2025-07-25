@@ -1,0 +1,71 @@
+//CIRCULAR QUEUE IMPLEMENTATION USING ARRAY
+
+#include <bits/stdc++.h>
+using namespace std;
+
+class circular{
+    int *arr;
+    int front,rear,size;
+
+    public:
+     circular(int n){
+        size = n;
+        arr = new int[n];
+        front = -1;
+        rear = -1;
+     }
+
+     bool enqu(int v){
+        if((rear + 1)% size == front){ //next rear index equals front then queue full
+            cout<<"QUeue full"<<"\n";
+            return false;
+        }
+        if(front== -1)
+        front =0;
+        rear = (rear+1)%size;
+        arr[rear] = v;
+        return true;
+     }
+
+     bool dequ(){
+        if(front == -1)
+        front = rear = -1;
+        else
+        front = (front+1)%size;
+
+        return true;
+     }
+
+     int getfront(){
+        if(front == -1){
+        cout<<"Queue is empty "<<"\n";
+        return -1;}
+        return arr[front];
+     }
+
+     bool empty(){
+        return front == -1;
+     }
+     bool full(){
+        return (rear+1)%size == front;
+     }
+};
+
+
+int main(){
+    circular q(5);
+
+    q.enqu(10);
+    q.enqu(20);
+    q.enqu(30);
+    q.enqu(40);
+    q.enqu(50);
+
+    q.dequ();
+    q.dequ();
+
+    q.enqu(60);
+    q.enqu(70);
+
+    cout<<"Front element is :"<<q.getfront()<<endl;
+}
